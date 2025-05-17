@@ -1,15 +1,19 @@
 package com.marykuo.demo.springdatajpa;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 
 @Embeddable
 public class Address {
     private String street;
+
     private String city;
+
     @Embedded
     private ZipCode zipCode;
 
-    protected Address() { }
+    protected Address() {
+    }
 
     public Address(String street, String city, ZipCode zipCode) {
         this.street = street;
@@ -29,4 +33,3 @@ public class Address {
         return zipCode;
     }
 }
-

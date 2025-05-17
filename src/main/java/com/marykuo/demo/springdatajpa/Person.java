@@ -10,8 +10,11 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_sequence")
     @Column(updatable = false)
     private Long personId;
+
     private String name;
+
     private String emailAddress;
+
     @Embedded
     private Address address;
 
