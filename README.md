@@ -10,6 +10,13 @@
 
 ## 分支分類
 
+### 值類型（Value Types）
+
+- [value-types/embedded](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/value-types/embedded)
+- [value-types/element-collection](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/value-types/element-collection)
+- [value-types/embedded-id](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/value-types/embedded-id)
+- [value-types/attribute-overrides](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/value-types/attribute-overrides)
+
 ### 繼承策略（Inheritance Strategies）
 
 在設計物件導向實體與關聯式資料庫映射時，JPA 提供三種標準的繼承策略（`@Inheritance`）來對應物件導向的 class hierarchy：
