@@ -19,6 +19,42 @@
 - [inheritance-strategy/mapped-superclass](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/inheritance-strategy/mapped-superclass)
 - [inheritance-strategy/joined-table](https://github.com/marykuo/spring-data-jpa-3.4.x/tree/inheritance-strategy/joined-table)
 
+<details>
+<summary>繼承策略概述</summary>
+
+#### Summary
+
+- SINGLE_TABLE：父類和子類的所有欄位儲存在**同一張資料表**，使用 discriminator 欄位區分不同的子類。
+- TABLE_PER_CLASS：父類和每個子類使用各自的資料表，共通欄位會同時存在於父類和子類的資料表中。
+    - 若無多型查詢需求，可改用 `@MappedSuperclass`。
+- JOINED：父類（共通欄位）存在一個資料表中，子類的欄位在各自的資料表中，並且使用外鍵關聯。
+
+#### 比較
+
+| Strategy | SINGLE_TABLE                  | TABLE_PER_CLASS  | JOINED          |
+|----------|-------------------------------|------------------|-----------------|
+| 優點       | 查詢效能高、結構簡單                    | 多型查詢效能高、易於擴充     | 儲存效能高、正規化高、易於擴充 |
+| 缺點       | 欄位稀疏／儲存空間浪費、無法加子類 Not null    | 多型查詢效能低、主鍵生成策略受限 | 查詢需 JOIN、效能較差   |
+| 適用場景     | 子類欄位數量少、結構簡單、多型查詢頻繁、查詢單一子類機會低 | 子類欄位數量多、多型查詢機會低  | 子類欄位數量多、多型查詢機會高 |
+
+| Strategy | SINGLE_TABLE | TABLE_PER_CLASS | JOINED      |
+|----------|--------------|-----------------|-------------|
+| 結構正規化    | 中            | 低               | ✅           |
+| 查詢子類效能   | 低（欄位稀疏）      | ✅               | 低（需 JOIN）   |
+| 多型查詢效能   | ✅            | 低（需 UNION）      | ✅           |
+| 儲存空間效率   | 中            | 中（欄位重複）         | ✅           |
+| 實作難度     | ✅            | 中（主鍵生成策略受限）     | 難（資料一致性風險高） |
+
+#### 考量關鍵
+
+- 多型查詢頻繁度
+- 子類欄位數量
+- 子類資料量
+- 子類查詢頻繁度
+- 正規化需求
+
+</details>
+
 ### 表格關聯（Entity Relationships）
 
 #### One-to-One
